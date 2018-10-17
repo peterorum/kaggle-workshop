@@ -42,26 +42,10 @@ test = load_df('../input/test.csv', nrows=10000)
 key = 'fullVisitorId'
 target = 'totals.transactionRevenue'
 
-int_cols = ['totals.hits', 'totals.pageviews', 'totals.visits']
+train[target] = train[target].fillna(0).astype(float)
 
-float_cols = [
-    'totals.bounces',
-    'totals.newVisits',
-    'totals.transactionRevenue',
-    'trafficSource.adwordsClickInfo.page'
-]
-
-for col in int_cols:
-    train[col] = train[col].fillna(0).astype(int)
-
-for col in float_cols:
-    train[col] = train[col].astype(float)
-
-
-train[target] = train[target].fillna(0)
-
+# use mean as prediction
 result = train[target].mean()
-
 train['predicted'] = result
 
 print(result)

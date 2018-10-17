@@ -109,4 +109,11 @@ venv.bak/
 
 *.sublime-*
 
-data/
+input/
+nohup.out
+examples/
+plots/
+
+submission*.csv
+optimize*.csv
+*.zip
