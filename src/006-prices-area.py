@@ -4,8 +4,8 @@ from sklearn.metrics import mean_squared_error
 import lightgbm as lgb
 
 # load data
-train = pd.read_csv(f'../input/train.csv')
-test = pd.read_csv(f'../input/test.csv')
+train = pd.read_csv('../input/train.csv')
+test = pd.read_csv('../input/test.csv')
 
 target = 'SalePrice'
 

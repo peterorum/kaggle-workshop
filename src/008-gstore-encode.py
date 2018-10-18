@@ -1,8 +1,4 @@
-import os
 import json
-import sys
-import csv
-from pprint import pprint
 import lightgbm as lgb
 import numpy as np
 import pandas as pd
@@ -26,7 +22,7 @@ def load_df(csv_path='../input/train.csv', nrows=None):
 
     for column in JSON_COLUMNS:
         column_as_df = json_normalize(df[column])
-        column_as_df.columns = [f"{column}.{subcolumn}" for subcolumn in column_as_df.columns]
+        column_as_df.columns = ["{column}.{subcolumn}" for subcolumn in column_as_df.columns]
         df = df.drop(column, axis=1).merge(column_as_df, right_index=True, left_index=True)
 
     # print(f"Loaded {os.path.basename(csv_path)}. Shape: {df.shape}")
@@ -47,12 +43,10 @@ def evaluate():
     return train_predictions, test_predictions
 
 
-#-------- main
-
 # load data
 # delete nrows = 10000 for full, but slow, processing
-train = load_df(f'../input/train.csv')
-test = load_df(f'../input/test.csv')
+train = load_df('../input/train.csv')
+test = load_df('../input/test.csv')
 
 # train.drop('trafficSource.campaignCode', inplace=True, axis=1)
 
@@ -63,8 +57,6 @@ train[target] = train[target].fillna(0).astype(float)
 
 # evaluation is log
 train_targets = np.log1p(train[target])
-
-#----------
 
 # selected columns
 

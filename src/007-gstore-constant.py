@@ -1,6 +1,4 @@
-import os
 import json
-import sys
 import numpy as np
 import pandas as pd
 from pandas.io.json import json_normalize
@@ -22,15 +20,13 @@ def load_df(csv_path='../input/train.csv', nrows=None):
 
     for column in JSON_COLUMNS:
         column_as_df = json_normalize(df[column])
-        column_as_df.columns = [f"{column}.{subcolumn}" for subcolumn in column_as_df.columns]
+        column_as_df.columns = ["{column}.{subcolumn}" for subcolumn in column_as_df.columns]
         df = df.drop(column, axis=1).merge(column_as_df, right_index=True, left_index=True)
 
     # print(f"Loaded {os.path.basename(csv_path)}. Shape: {df.shape}")
 
     return df
 
-
-#-------- main
 
 # load data
 
